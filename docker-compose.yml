@@ -2,7 +2,8 @@ services:
   db:
     image: mysql:8
     volumes:
-      - db_data:/var/lib/mysql
+      #- db_data:/var/lib/mysql #parametro original
+      - ./db:/var/lib/mysql #almacenando los datos fuera del contenedor
     restart: always
 
     environment:
@@ -22,6 +23,12 @@ services:
       - ${PWD}/temas/DevWP:/var/www/html/wp-content/themes/DevWP #Tema para desarrollo este es en el que voy a trabajar
       #- ${PWD}/temas/SUITE_ADOBE_ori.zip:/var/www/html/wp-content/themes/suite.zip #Test
 #Fin Nueva Linea proyectos
+#Inicio para almacenar plugins fuera del contenedor
+      - ${PWD}/plugins/:/var/www/html/wp-content/plugins/
+#Fin
+#Inicio para almacenar archivos multimedia fuera del contenedor y luego mapearlo
+      - ${PWD}/multimedia:/var/www/html/wp-content/uploads
+#Fin
     ports:
       - "8000:80"
     restart: always
